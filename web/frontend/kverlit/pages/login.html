@@ -1,0 +1,21 @@
+<div>
+    <h1>Login</h1>
+    <form>
+        <input type='text' placeholder='Логин'>
+        <input type='password' placeholder='Пароль'>
+    
+        <button type='submit'>Войти</button>
+    </form>
+</div>
+
+<script>
+    this.root.querySelector('form').addEventListener('submit', e => {
+        e.preventDefault();
+
+        alert('Submitted!');
+    });
+</script>
+
+<style>
+
+</style>

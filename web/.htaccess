@@ -1,0 +1,11 @@
+AddDefaultCharset UTF-8
+
+DirectoryIndex frontend/index.html
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ frontend/index.html [L]
+</IfModule>
