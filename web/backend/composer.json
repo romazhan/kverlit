@@ -1,0 +1,17 @@
+{
+    "name": "kverlit/backend",
+    "type": "project",
+    "license": "GPL-3.0",
+    "autoload": {
+        "psr-4": {
+            "Kverlit\\": "kverlit/",
+            "Framework\\": "framework/"
+        }
+    },
+    "authors": [
+        {
+            "name": "polak228"
+        }
+    ],
+    "require": {}
+}
