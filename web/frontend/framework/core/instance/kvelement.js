@@ -6,7 +6,7 @@ const normalizeKvelementName = kvelementName => `${PREFIX}-${kvelementName.toLow
 
 const getKvelement = normalizedKvelementName => (customElements.get(normalizedKvelementName) || {}).prototype;
 
-const createKvelement = (kvelementName, textTemplate, events) => {
+const createKvelement = (kvelementName, textTemplate, events = {}) => {
     const normalizedKvelementName = normalizeKvelementName(kvelementName);
 
     const kvelement = getKvelement(normalizedKvelementName);
@@ -29,6 +29,8 @@ const createKvelement = (kvelementName, textTemplate, events) => {
         }
 
         _bindEvents(events) {
+            if(!events) return;
+
             Object.keys(events).forEach(eventName => {
                 this.shadowRoot.addEventListener(eventName, events[eventName]);
             });
