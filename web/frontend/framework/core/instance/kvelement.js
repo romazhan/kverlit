@@ -8,10 +8,11 @@ const getKvelement = normalizedKvelementName => (customElements.get(normalizedKv
 
 const createKvelement = (kvelementName, textTemplate, events) => {
     const normalizedKvelementName = normalizeKvelementName(kvelementName);
-    const kvelementTag = toTagSyntax(normalizedKvelementName);
 
     const kvelement = getKvelement(normalizedKvelementName);
     if(kvelement) return kvelement;
+
+    const kvelementTag = toTagSyntax(normalizedKvelementName);
 
     customElements.define(normalizedKvelementName, class extends HTMLElement {
         constructor() {
@@ -28,8 +29,6 @@ const createKvelement = (kvelementName, textTemplate, events) => {
         }
 
         _bindEvents(events) {
-            if(!events) return;
-
             Object.keys(events).forEach(eventName => {
                 this.shadowRoot.addEventListener(eventName, events[eventName]);
             });
