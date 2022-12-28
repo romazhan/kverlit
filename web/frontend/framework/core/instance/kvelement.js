@@ -45,7 +45,7 @@ const createKvelement = (kvelementName, textTemplate, events = {}) => {
 
             scriptEl.remove();
 
-            const scriptText = scriptEl.textContent;
+            const scriptText = `(async () => {${scriptEl.textContent}})();`;
             const scriptFn = new Function(scriptText);
 
             this.shadowRoot.appendChild(html);
