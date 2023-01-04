@@ -1,21 +1,25 @@
 <div>
     <h1>Вход</h1>
     <form>
-        <input type='text' placeholder='Логин'>
-        <input type='password' placeholder='Пароль'>
-    
+        <input type='text' name='login' placeholder='Логин'>
+        <input type='password' name='password' placeholder='Пароль'>
+
         <button type='submit'>Войти</button>
     </form>
 </div>
 
 <script>
+    const { httpPost } = await this.require('/frontend/framework/index.js');
+    const { BACKEND_URL } = await this.require('/frontend/kverlit/shared/constants.js');
+
     this.root.querySelector('form').addEventListener('submit', e => {
         e.preventDefault();
 
-        alert('Submitted!');
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        httpPost(BACKEND_URL, data).then(res => {
+            console.log(res);
+        });
     });
 </script>
-
-<style>
-
-</style>

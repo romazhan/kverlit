@@ -24,7 +24,8 @@ const createKvelement = (kvelementName, textTemplate, events = {}) => {
 
         get _context() {
             return {
-                root: this.shadowRoot
+                root: this.shadowRoot,
+                require: url => import(url).then(_ => _)
             };
         }
 
@@ -45,7 +46,9 @@ const createKvelement = (kvelementName, textTemplate, events = {}) => {
 
             scriptEl.remove();
 
-            const scriptText = `(async () => {${scriptEl.textContent}})();`;
+            const scriptText = `(async () => {
+                ${scriptEl.textContent}
+            })();`;
             const scriptFn = new Function(scriptText);
 
             this.shadowRoot.appendChild(html);
