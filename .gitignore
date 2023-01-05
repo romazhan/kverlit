@@ -1,2 +1,5 @@
 # Composer
 web/backend/vendor
+
+# Environment
+.env

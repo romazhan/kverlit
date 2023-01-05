@@ -4,8 +4,7 @@
     "license": "GPL-3.0",
     "autoload": {
         "psr-4": {
-            "Kverlit\\": "kverlit/",
-            "Framework\\": "framework/"
+            "Kverlit\\": "src/"
         }
     },
     "authors": [
@@ -13,5 +12,7 @@
             "name": "polak228"
         }
     ],
-    "require": {}
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
+    }
 }

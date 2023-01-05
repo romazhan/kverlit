@@ -16,10 +16,13 @@
         e.preventDefault();
 
         const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries());
+        const data = Object.fromEntries(new FormData(e.target).entries());
+        data.action = 'login';
 
         httpPost(BACKEND_URL, data).then(res => {
             console.log(res);
+        }).catch(err => {
+            console.log(err);
         });
     });
 </script>

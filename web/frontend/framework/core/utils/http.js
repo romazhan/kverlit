@@ -11,14 +11,16 @@ const http = (method, url, data = {}) => new Promise((resolve, reject) => {
     );
 
     xhr.onload = () => {
+        let response = xhr.response;
+
+        try {
+            response = JSON.parse(response);
+        } catch(_) {}
+
         if(xhr.status >= 200 && xhr.status < 300) {
-            try {
-                resolve(JSON.parse(xhr.response));
-            } catch(e) {
-                resolve(xhr.response);
-            }
+            resolve(response);
         } else {
-            reject(xhr.statusText);
+            reject(response);
         }
     };
 
