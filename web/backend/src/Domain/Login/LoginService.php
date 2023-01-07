@@ -2,15 +2,12 @@
 
 namespace Kverlit\Domain\Login;
 
-use Kverlit\Abstract\Interface\IService;
-use Kverlit\Abstract\Interface\IRepository;
-
-final class LoginService implements IService {
+final class LoginService {
     public function __construct(
-        private IRepository $loginRepository
+        private LoginRepository $loginRepository
     ) {}
 
-    public function login(string $login, string $password): bool {
-        return false;
+    public function login(string $username, string $password): bool {
+        return $this->loginRepository->login($username, $password);
     }
 }

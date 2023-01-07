@@ -1,10 +1,10 @@
 <div>
-    <h1>Вход</h1>
+    <h1>Регистрация</h1>
     <form>
         <input type='text' name='username' placeholder='Логин'>
         <input type='password' name='password' placeholder='Пароль'>
-
-        <button type='submit'>Войти</button>
+        <input type='password' name='password2' placeholder='Повторите пароль'>
+        <button type='submit'>Зарегистрироваться</button>
     </form>
 </div>
 
@@ -17,7 +17,12 @@
 
         const formData = new FormData(e.target);
         const data = Object.fromEntries(new FormData(e.target).entries());
-        data.action = 'login';
+        data.action = 'register';
+
+        if(data.password !== data.password2) {
+            alert('Пароли не совпадают');
+            return;
+        }
 
         httpPost(BACKEND_URL, data).then(res => {
             console.log(res);

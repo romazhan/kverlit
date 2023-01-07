@@ -1,5 +1,5 @@
 const encodeData = data => Object.keys(data).reduce(
-    (pV, cV) => pV + `${cV}=${encodeURIComponent(data[cV])}&`,
+    (pV, cV) => `${pV}${cV}=${encodeURIComponent(data[cV])}&`,
 '');
 
 const http = (method, url, data = {}) => new Promise((resolve, reject) => {

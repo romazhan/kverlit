@@ -2,11 +2,9 @@
 
 namespace Kverlit\Abstract;
 
-use Kverlit\Abstract\Interface\IRepository;
-
 use mysqli;
 
-abstract class Repository implements IRepository {
+abstract class Repository {
     protected mysqli $db;
 
     public function __construct() {
