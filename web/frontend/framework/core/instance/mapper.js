@@ -7,25 +7,40 @@ import { createKvelement } from './kvelement.js';
 class Mapper {
     constructor(map) {
         this._map = map;
+        this._root = null;
+    }
+
+    mount(element) {
+        this._root = element;
+
+        return this;
+    }
+
+    init() {
+        if(!this._root) throw Error('Mapper: root element is not defined');
+
+        this._bindPopState();
+        this._handleCurrentUrl();
     }
 
     _bindPopState() {
         window.addEventListener('popstate', () => this._handleCurrentUrl());
     }
 
-    _getMapPath(url) {
-        return this._map[url] || this._map['404'] || null;
+    _handleCurrentUrl() {
+        const url = getUrlPath();
+        this._handleUrl(url);
+    }
+    
+    _handleUrl(url) {
+        const mapPath = this._getMapPath(url);
+        if(!mapPath) return;
+
+        this._createPageKvelement(mapPath);
     }
 
-    _clickHandler() {
-        return delegate('a', e => {
-            e.preventDefault();
-
-            const url = e.target.getAttribute('href');
-            setUrl(url);
-
-            this._handleUrl(url);
-        })
+    _getMapPath(url) {
+        return this._map[url] || this._map['404'] || null;
     }
 
     async _createPageKvelement(mapPath) {
@@ -38,27 +53,16 @@ class Mapper {
         this._root.innerHTML = kvelement.tag;
     }
 
-    _handleUrl(url) {
-        const mapPath = this._getMapPath(url);
-        if(!mapPath) return;
+    _clickHandler() {
+        return delegate('a', e => {
+            e.preventDefault();
+            
+            const url = e.target.getAttribute('href');
+            if(url === getUrlPath()) return; // CRUTCH
 
-        this._createPageKvelement(mapPath);
-    }
-
-    _handleCurrentUrl() {
-        const url = getUrlPath();
-        this._handleUrl(url);
-    }
-
-    init() {
-        this._bindPopState();
-        this._handleCurrentUrl();
-    }
-
-    mount(element) {
-        this._root = element;
-
-        return this;
+            setUrl(url);
+            this._handleUrl(url);
+        })
     }
 };
 

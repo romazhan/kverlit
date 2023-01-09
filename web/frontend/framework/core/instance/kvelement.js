@@ -1,14 +1,20 @@
-import { PREFIX } from '../shared/contract.js';
-
 import {
     textToHtml, toTagSyntax, router, cookie, httpPost
 } from '../utils/index.js';
 
-const normalizeKvelementName = kvelementName => `${PREFIX}-${kvelementName.toLowerCase().replace(' ', '-')}`;
+import { Observer } from './observer.js';
+
+import { PREFIX } from '../shared/contract.js';
 
 const getKvelement = normalizedKvelementName => (customElements.get(normalizedKvelementName) || {}).prototype;
 
-const createKvelement = (kvelementName, textContent, events = {}) => {
+const normalizeKvelementName = kvelementName => {
+    if(kvelementName.includes(`${PREFIX}-`)) return kvelementName;
+
+    return `${PREFIX}-${kvelementName.toLowerCase().replace(' ', '-')}`;
+};
+
+const createKvelement = (kvelementName, textContent, events = {}) =>{
     const normalizedKvelementName = normalizeKvelementName(kvelementName);
 
     const kvelement = getKvelement(normalizedKvelementName);
@@ -22,22 +28,15 @@ const createKvelement = (kvelementName, textContent, events = {}) => {
             this.attachShadow({mode: 'open'});
 
             this._bindEvents(events);
+            this._initObserver();
         }
 
-        get _context() {
-            return {
-                root: this.shadowRoot,
-                require: url => import(url).then(_ => _),
-                router, cookie, httpPost
-            };
+        get tag() {
+            return kvelementTag;
         }
 
-        _bindEvents(events) {
-            if(!events) return;
-
-            Object.keys(events).forEach(eventName => {
-                this.shadowRoot.addEventListener(eventName, events[eventName]);
-            });
+        connectedCallback() {
+            this._compileAndConnect(textToHtml(textContent));
         }
 
         _compileAndConnect(html) {
@@ -49,22 +48,59 @@ const createKvelement = (kvelementName, textContent, events = {}) => {
 
             scriptEl.remove();
 
-            const scriptText = `(async () => {
-                ${scriptEl.textContent}
-            })();`;
+            const scriptText = `(async () => {${scriptEl.textContent}})();`;
             const scriptFn = new Function(scriptText);
 
             this.shadowRoot.appendChild(html);
-
             scriptFn.call(this._context);
         }
 
-        connectedCallback() { 
-            this._compileAndConnect(textToHtml(textContent));
+        _bindEvents(events) {
+            if(!events) return;
+
+            Object.keys(events).forEach(eventName => {
+                this.shadowRoot.addEventListener(eventName, events[eventName]);
+            });
         }
 
-        get tag() {
-            return kvelementTag;
+        _initObserver() {
+            this._observer = new Observer();
+            this._observer.observe(this, {attributes: true});
+        }
+
+        _onAttrChange(name, callback) {
+            this._observer.pushAttributeHandler((attrName, newValue) => {
+                if(attrName !== name) return;
+
+                callback(newValue);
+            });
+        }
+
+        get _context() {
+            const features = {
+                root: this.shadowRoot,
+                attrs: this._attributes
+            };
+
+            const methods = {
+                require: url => import(url).then(_ => _),
+                onUpdate: this._onAttrChange.bind(this)
+            };
+
+            const tools = {router, cookie, httpPost};
+
+            return {
+                ...features,
+                ...methods,
+                ...tools
+            };
+        }
+
+        get _attributes() {
+            return this.getAttributeNames().reduce((attrObj, cAttrName) => {
+                attrObj[cAttrName] = this.getAttribute(cAttrName);
+                return attrObj;
+            }, {});
         }
     });
 

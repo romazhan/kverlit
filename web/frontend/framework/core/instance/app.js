@@ -8,7 +8,20 @@ class App {
         this._kvelements = kvelements;
     }
 
-    _initKvelements() {
+    init(onInit = () => {}) {
+        this._initKvelements();
+        this._initMapper();
+
+        onInit();
+    }
+
+    _initMapper() {
+        if(!this._mapper) return;
+
+        this._mapper.init();
+    }
+
+    async _initKvelements() {
         if(!this._kvelements) return;
 
         Object.keys(this._kvelements).forEach(async kvelementName => {
@@ -18,17 +31,6 @@ class App {
                 click: this._mapper._clickHandler() || (() => {})
             });
         });
-    }
-
-    _initMapper() {
-        if(!this._mapper) return;
-
-        this._mapper.init();
-    }
-
-    init() {
-        this._initKvelements();
-        this._initMapper();
     }
 }
 
