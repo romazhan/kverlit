@@ -27,8 +27,9 @@ const createKvelement = (kvelementName, textContent, events = {}) =>{
             super();
             this.attachShadow({mode: 'open'});
 
+            this._observer = this._initObserver();
+
             this._bindEvents(events);
-            this._initObserver();
         }
 
         get tag() {
@@ -64,8 +65,10 @@ const createKvelement = (kvelementName, textContent, events = {}) =>{
         }
 
         _initObserver() {
-            this._observer = new Observer();
-            this._observer.observe(this, {attributes: true});
+            const observer = new Observer();
+            observer.observe(this, {attributes: true});
+
+            return observer;
         }
 
         _onAttrChange(name, callback) {

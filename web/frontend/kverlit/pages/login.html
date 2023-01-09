@@ -25,7 +25,7 @@
         data.action = 'login';
 
         data.username = data.username.trim();
-        this.cookie.set('username', data.username, 75);
+        this.cookie.set('username', data.username, 100);
 
         this.httpPost(BACKEND_URL, data).then(res => {
             this.cookie.set('privateToken', res.privateToken, 75);

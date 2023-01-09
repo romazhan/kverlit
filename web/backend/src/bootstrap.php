@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+session_start(); // TODO: implement the need
 
 use Dotenv\Dotenv;
 use Kverlit\Http\Request;

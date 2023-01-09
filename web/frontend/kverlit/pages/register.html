@@ -51,7 +51,7 @@
 
         if(validateData(data)) {
             this.httpPost(BACKEND_URL, data).then(res => {
-                this.cookie.set('username', data.username, 75);
+                this.cookie.set('username', data.username, 100);
                 this.cookie.set('privateToken', res.privateToken, 75);
 
                 this.router.navigate('/feed');
