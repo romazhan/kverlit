@@ -1,0 +1,22 @@
+<div>
+    <slot></slot>
+</div>
+
+<script>
+    const { BACKEND_URL } = await this.require('/frontend/kverlit/shared/constants.js');
+
+    const privateToken = this.cookie.get('privateToken');
+
+    if(privateToken) {
+        this.httpPost(BACKEND_URL, {
+            action: 'user',
+            needle: 'validatePrivateToken',
+            privateToken
+        }).catch(err => {
+            this.cookie.erase('privateToken');
+            this.router.navigate('/');
+        });
+    } else {
+        this.router.navigate('/');
+    }
+</script>

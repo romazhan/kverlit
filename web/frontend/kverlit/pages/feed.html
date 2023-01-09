@@ -1,0 +1,11 @@
+<kve-for-user>
+    <h1>Feed</h1>
+    <button id='logout'>Выйти</button>
+</kve-for-user>
+
+<script>
+    this.root.querySelector('#logout').addEventListener('click', () => {
+        this.cookie.erase('privateToken');
+        this.router.navigate('/');
+    });
+</script>

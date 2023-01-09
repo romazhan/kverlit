@@ -1,0 +1,9 @@
+<div>
+    <slot></slot>
+</div>
+
+<script>
+    if(this.cookie.get('privateToken')) {
+        this.router.navigate('/feed');
+    }
+</script>

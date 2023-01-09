@@ -16,4 +16,8 @@ final class Request {
 
         return $this->request[$key] ?? null;
     }
+
+    public function has(string $key): bool {
+        return isset($this->request[$key]);
+    }
 }

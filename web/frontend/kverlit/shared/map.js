@@ -14,6 +14,10 @@ const map = {
     '/login': {
         name: 'Login',
         template: 'pages/login.html'
+    },
+    '/feed': {
+        name: 'Feed',
+        template: 'pages/feed.html'
     }
 };
 

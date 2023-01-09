@@ -1,16 +1,44 @@
-<div>
+<kve-for-guest>
     <h1>Регистрация</h1>
     <form>
         <input type='text' name='username' placeholder='Логин'>
         <input type='password' name='password' placeholder='Пароль'>
         <input type='password' name='password2' placeholder='Повторите пароль'>
+
         <button type='submit'>Зарегистрироваться</button>
     </form>
-</div>
+</kve-for-guest>
 
 <script>
-    const { httpPost } = await this.require('/frontend/framework/index.js');
     const { BACKEND_URL } = await this.require('/frontend/kverlit/shared/constants.js');
+
+    const validateData = data => {
+        const loginRegex = /^[a-zA-Z0-9_]+$/;
+
+        data.username = data.username.trim();
+
+        if(data.username.length < 2 || data.username.length > 39) {
+            alert('Логин должен быть от 2 до 39 символов');
+            return false;
+        }
+
+        if(!loginRegex.test(data.username)) {
+            alert('Логин может содержать только латинские буквы, цифры и символы подчеркивания');
+            return false;
+        }
+
+        if(data.password.length < 7) {
+            alert('Пароль должен быть не меньше 7 символов');
+            return false;
+        }
+
+        if(data.password !== data.password2) {
+            alert('Пароли не совпадают');
+            return false;
+        }
+
+        return true;
+    };
 
     this.root.querySelector('form').addEventListener('submit', e => {
         e.preventDefault();
@@ -19,15 +47,13 @@
         const data = Object.fromEntries(new FormData(e.target).entries());
         data.action = 'register';
 
-        if(data.password !== data.password2) {
-            alert('Пароли не совпадают');
-            return;
-        }
+        if(validateData(data)) {
+            this.httpPost(BACKEND_URL, data).then(res => {
+                this.cookie.set('username', data.username, 75);
+                this.cookie.set('privateToken', res.privateToken, 75);
 
-        httpPost(BACKEND_URL, data).then(res => {
-            console.log(res);
-        }).catch(err => {
-            console.log(err);
-        });
+                this.router.navigate('/feed');
+            }).catch(err => alert(err.message));
+        }
     });
 </script>

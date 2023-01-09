@@ -7,17 +7,16 @@ use Kverlit\Http\Response;
 
 final class RegisterController {
     public function register(Request $request): void {
-        $register = new RegisterService(
-            new RegisterRepository()
-        );
+        $registerService = new RegisterService();
 
-        if($register->register($request)) {
+        if($registerService->register($request)) {
             Response::send([
-                'message' => 'User registered successfully'
+                'message' => 'User registered successfully',
+                'privateToken' => $registerService->getPrivateToken()
             ]);
         } else {
             Response::send([
-                'message' => 'User registration failed'
+                'message' => 'The username is already taken'
             ], 400);
         }
     }

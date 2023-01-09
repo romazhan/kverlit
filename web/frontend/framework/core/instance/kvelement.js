@@ -1,12 +1,14 @@
 import { PREFIX } from '../shared/contract.js';
 
-import { textToHtml, toTagSyntax } from '../utils/index.js';
+import {
+    textToHtml, toTagSyntax, router, cookie, httpPost
+} from '../utils/index.js';
 
 const normalizeKvelementName = kvelementName => `${PREFIX}-${kvelementName.toLowerCase().replace(' ', '-')}`;
 
 const getKvelement = normalizedKvelementName => (customElements.get(normalizedKvelementName) || {}).prototype;
 
-const createKvelement = (kvelementName, textTemplate, events = {}) => {
+const createKvelement = (kvelementName, textContent, events = {}) => {
     const normalizedKvelementName = normalizeKvelementName(kvelementName);
 
     const kvelement = getKvelement(normalizedKvelementName);
@@ -25,7 +27,8 @@ const createKvelement = (kvelementName, textTemplate, events = {}) => {
         get _context() {
             return {
                 root: this.shadowRoot,
-                require: url => import(url).then(_ => _)
+                require: url => import(url).then(_ => _),
+                router, cookie, httpPost
             };
         }
 
@@ -57,7 +60,7 @@ const createKvelement = (kvelementName, textTemplate, events = {}) => {
         }
 
         connectedCallback() { 
-            this._compileAndConnect(textToHtml(textTemplate));
+            this._compileAndConnect(textToHtml(textContent));
         }
 
         get tag() {
