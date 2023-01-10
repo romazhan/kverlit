@@ -58,7 +58,7 @@ class Mapper {
             e.preventDefault();
             
             const url = e.target.getAttribute('href');
-            if(url === getUrlPath()) return; // CRUTCH
+            // if(url === getUrlPath()) return; // CRUTCH
 
             setUrl(url);
             this._handleUrl(url);

@@ -27,9 +27,7 @@ class App {
         Object.keys(this._kvelements).forEach(async kvelementName => {
             const kvelementContent = await httpGet(this._kvelements[kvelementName]);
 
-            createKvelement(kvelementName, kvelementContent, {
-                click: this._mapper._clickHandler() || (() => {})
-            });
+            createKvelement(kvelementName, kvelementContent);
         });
     }
 }
