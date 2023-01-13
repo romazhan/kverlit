@@ -12,11 +12,9 @@ $userRepository = new UserRepository();
 
 (new UserMiddleware($userRepository))->handle(new Request(),
     function(Request $request, array $accountData) use($userRepository) {
-        $userController = new UserController(
-            new UserService($userRepository,
-                User::fromArray($accountData)
-            )
-        );
+        $userController = new UserController(new UserService(
+            $userRepository, User::fromArray($accountData)
+        ));
 
         switch($request->get('needle')) {
             case 'validatePrivateToken':

@@ -11,14 +11,11 @@ final class RegisterValidator {
     private const PASSWORD_RANGE = [7, INF - 1];
 
     public static function validate(Request $request): bool {
-        if($request->has('username') && $request->has('password')) {
-            return (
-                self::validateUsername($request->get('username')) &&
-                self::validatePassword($request->get('password'))
-            );
-        }
-
-        return false;
+        return (
+            $request->has('username') && $request->has('password') &&
+            self::validateUsername($request->get('username')) &&
+            self::validatePassword($request->get('password'))
+        );
     }
 
     private static function validateUsername(string $username): bool {

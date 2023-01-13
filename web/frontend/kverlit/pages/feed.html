@@ -12,6 +12,6 @@
 <script>
     this.root.querySelector('#logout').addEventListener('click', () => {
         this.cookie.erase('privateToken');
-        this.router.navigate('/');
+        this.router.replace('/');
     });
 </script>

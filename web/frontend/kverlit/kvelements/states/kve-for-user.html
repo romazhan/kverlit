@@ -12,7 +12,7 @@
             action: 'user',
             needle: 'validatePrivateToken',
             privateToken
-        }).then(r => console.log(r)).catch(() => {
+        }).catch(() => {
             this.cookie.erase('privateToken');
             this.router.replace('/');
         });

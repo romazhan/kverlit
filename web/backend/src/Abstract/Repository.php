@@ -13,6 +13,7 @@ abstract class Repository {
             getenv('DB_HOSTNAME'), getenv('DB_USERNAME'),
             getenv('DB_PASSWORD'), getenv('DB_DATABASE')
         );
+        $this->db->set_charset('utf8mb4');
     }
 
     public function __destruct() {
