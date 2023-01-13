@@ -56,7 +56,7 @@
                 this.cookie.set('username', data.username, 100);
                 this.cookie.set('privateToken', res.privateToken, 75);
 
-                this.router.navigate('/feed');
+                this.router.replace('/feed');
             }).catch(err => alert(err.message));
         }
     });

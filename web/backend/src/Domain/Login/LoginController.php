@@ -6,15 +6,17 @@ use Kverlit\Http\Request;
 use Kverlit\Http\Response;
 
 final class LoginController {
-    public function login(Request $request): void {
-        $loginService = new LoginService();
+    public function __construct(
+        private LoginService $loginService
+    ) {}
 
-        if($loginService->login(
+    public function login(Request $request): void {
+        if($user = $this->loginService->login(
             $request->get('username'), $request->get('password')
         )) {
             Response::send([
                 'message' => 'Login successful',
-                'privateToken' => $loginService->getPrivateToken()
+                'privateToken' => $user->privateToken
             ]);
         } else {
             Response::send([

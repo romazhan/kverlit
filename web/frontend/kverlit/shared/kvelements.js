@@ -8,7 +8,9 @@ const kvelements = {
     'kve-for-guest': `${kvelementsPath}/states/kve-for-guest.html`,
     // - base -
     'kve-page': `${kvelementsPath}/base/kve-page.html`,
-    'kve-button': `${kvelementsPath}/base/kve-button.html`
+    'kve-button': `${kvelementsPath}/base/kve-button.html`,
+    'kve-header': `${kvelementsPath}/base/kve-header.html`,
+    'kve-user-card': `${kvelementsPath}/base/kve-user-card.html`
 };
 
 export { kvelements };

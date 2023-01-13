@@ -18,6 +18,10 @@ const map = {
     '/feed': {
         name: 'Feed',
         template: 'pages/feed.html'
+    },
+    '/profile': {
+        name: 'Profile',
+        template: 'pages/profile.html'
     }
 };
 

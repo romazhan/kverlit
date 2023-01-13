@@ -4,7 +4,9 @@ const router = (() => {
         window.dispatchEvent(new Event('popstate'));
     };
 
-    return {navigate};
+    const replace = url => window.location.replace(url);
+
+    return {navigate, replace};
 })();
 
 export { router };

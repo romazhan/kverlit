@@ -2,24 +2,19 @@
 
 namespace Kverlit\Domain\User;
 
-use Kverlit\Domain\User\Token\PrivateToken;
-
 final class UserService {
     public function __construct(
-        private UserRepository $userRepository = new UserRepository()
+        private UserRepository $userRepository,
+        private User $user
     ) {
         $this->userRepository->setTableName('accounts');
     }
 
-    public function validatePrivateToken(string $privateToken): bool {
-        [$accountId, $_] = PrivateToken::parse($privateToken);
-
-        if($accountData = $this->userRepository->getById($accountId)) {
-            return PrivateToken::validate(
-                $privateToken, $accountData['id'], $accountData['password_hash']
-            );
-        }
-
-        return false;
+    public function getUserInfo(): array {
+        return [
+            'id' => $this->user->id,
+            'username' => $this->user->username,
+            'regDate' => $this->user->createdAt
+        ];
     }
 }

@@ -32,7 +32,7 @@
         this.httpPost(BACKEND_URL, data).then(res => {
             this.cookie.set('privateToken', res.privateToken, 75);
 
-            this.router.navigate('/feed');
+            this.router.replace('/feed');
         }).catch(err => alert(err.message));
     });
 </script>

@@ -2,36 +2,32 @@
 
 namespace Kverlit\Domain\Register;
 
-use Kverlit\Domain\User\Token\PrivateToken;
-
+use Kverlit\Domain\User\User;
 use Kverlit\Http\Request;
 
 final class RegisterService {
     public function __construct(
-        private RegisterRepository $registerRepository = new RegisterRepository()
-    ) {}
+        private RegisterRepository $registerRepository
+    ) {
+        $this->registerRepository->setTableName('accounts');
+    }
 
-    public function register(Request $request): bool {
+    public function register(Request $request): ?User {
         if(RegisterValidator::validate($request)) {
             if($this->registerRepository->usernameExists($request->get('username'))) {
-                return false;
+                return null;
             }
 
-            return $this->registerRepository->register(
+            if($accountData = $this->registerRepository->register(
                 $request->get('username'),
                 password_hash(
                     $request->get('password'), PASSWORD_DEFAULT
                 )
-            );
+            )) {
+                return User::fromArray($accountData);
+            }
         }
 
-        return false;
-    }
-
-    public function getPrivateToken(): string {
-        return PrivateToken::generate(
-            $this->registerRepository->getAccountId(),
-            $this->registerRepository->getPasswordHash()
-        );
+        return null;
     }
 }

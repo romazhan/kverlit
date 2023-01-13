@@ -6,17 +6,14 @@ use Kverlit\Http\Request;
 use Kverlit\Http\Response;
 
 final class UserController {
-    public function validatePrivateToken(Request $request): void {
-        $userService = new UserService();
+    public function __construct(
+        private UserService $userService
+    ) {}
 
-        if($userService->validatePrivateToken($request->get('privateToken'))) {
-            Response::send([
-                'message' => 'Private token is valid'
-            ]);
-        } else {
-            Response::send([
-                'message' => 'Private token is invalid'
-            ], 400);
-        }
+    public function getUserInfo(Request $request): void {
+        Response::send([
+            'message' => 'User info',
+            'data' => $this->userService->getUserInfo($request)
+        ]);
     }
 }

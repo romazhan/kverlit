@@ -2,21 +2,20 @@
 
 namespace Kverlit\Domain\Login;
 
-use Kverlit\Domain\User\Token\PrivateToken;
+use Kverlit\Domain\User\User;
 
 final class LoginService {
     public function __construct(
-        private LoginRepository $loginRepository = new LoginRepository()
+        private LoginRepository $loginRepository
     ) {}
 
-    public function login(string $username, string $password): bool {
-        return $this->loginRepository->login($username, $password);
-    }
+    public function login(string $username, string $password): ?User {
+        $accountData = $this->loginRepository->getByUsername($username);
 
-    public function getPrivateToken(): string {
-        return PrivateToken::generate(
-            $this->loginRepository->getAccountId(),
-            $this->loginRepository->getPasswordHash()
-        );
+        if(!$accountData || !password_verify($password, $accountData['password_hash'])) {
+            return null;
+        }
+
+        return User::fromArray($accountData);
     }
 }

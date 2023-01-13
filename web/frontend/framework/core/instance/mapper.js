@@ -1,5 +1,5 @@
 import {
-    getUrlPath, setUrl, httpGet, delegate
+    router, getUrlPath, httpGet, delegate
 } from '../utils/index.js';
 
 import { createKvelement } from './kvelement.js';
@@ -60,8 +60,7 @@ class Mapper {
             const url = e.target.getAttribute('href');
             // if(url === getUrlPath()) return; // CRUTCH
 
-            setUrl(url);
-            this._handleUrl(url);
+            router.navigate(url);
         })
     }
 };

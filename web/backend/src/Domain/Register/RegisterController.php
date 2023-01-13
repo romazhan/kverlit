@@ -6,13 +6,15 @@ use Kverlit\Http\Request;
 use Kverlit\Http\Response;
 
 final class RegisterController {
-    public function register(Request $request): void {
-        $registerService = new RegisterService();
+    public function __construct(
+        private RegisterService $registerService
+    ) {}
 
-        if($registerService->register($request)) {
+    public function register(Request $request): void {
+        if($user = $this->registerService->register($request)) {
             Response::send([
                 'message' => 'User registered successfully',
-                'privateToken' => $registerService->getPrivateToken()
+                'privateToken' => $user->privateToken
             ]);
         } else {
             Response::send([
