@@ -13,7 +13,7 @@ final class UserController {
     public function getUserInfo(Request $request): void {
         Response::send([
             'message' => 'User info',
-            'data' => $this->userService->getUserInfo($request)
+            'userData' => $this->userService->getUserInfo($request)
         ]);
     }
 }

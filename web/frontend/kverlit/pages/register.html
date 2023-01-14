@@ -14,7 +14,7 @@
 </kve-for-guest>
 
 <script>
-    const { BACKEND_URL } = await this.require('/frontend/kverlit/shared/constants.js');
+    const { BACKEND_URL } = await this.$require('/frontend/kverlit/shared/constants.js');
 
     const validateData = data => {
         const loginRegex = /^[a-zA-Z0-9_]+$/;
@@ -44,7 +44,7 @@
         return true;
     };
 
-    this.root.querySelector('form').addEventListener('submit', e => {
+    this.$('form').on('submit', e => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
@@ -52,11 +52,11 @@
         data.action = 'register';
 
         if(validateData(data)) {
-            this.httpPost(BACKEND_URL, data).then(res => {
-                this.cookie.set('username', data.username, 100);
-                this.cookie.set('privateToken', res.privateToken, 75);
+            this.$httpPost(BACKEND_URL, data).then(res => {
+                this.$cookie.set('username', data.username, 100);
+                this.$cookie.set('privateToken', res.privateToken, 75);
 
-                this.router.replace('/feed');
+                this.$router.replace('/feed');
             }).catch(err => alert(err.message));
         }
     });

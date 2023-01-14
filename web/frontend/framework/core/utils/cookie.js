@@ -8,9 +8,9 @@ const cookie = (() => {
         new Date(Date.now() + days * 864e5).toUTCString()
     }; path=/`;
 
-    const erase = name => set(name, '', -1);
+    const remove = name => set(name, '', -1);
 
-    return {get, set, erase};
+    return {get, set, remove};
 })();
 
 export { cookie };

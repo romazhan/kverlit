@@ -1,9 +1,9 @@
 <script>
-    const setTitle = (title = this.attrs.title) => {
+    const setTitle = (title = this.$attrs.title) => {
         document.title = `${title ? `${title} | ` : ''}Kverlit`;
     };
 
     setTitle();
 
-    this.onUpdate('title', setTitle);
+    this.$onProp('title', setTitle);
 </script>

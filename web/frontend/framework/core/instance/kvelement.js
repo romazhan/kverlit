@@ -1,5 +1,6 @@
 import {
-    textToHtml, toTagSyntax, router, cookie, httpPost
+    $, textToHtml, toTagSyntax,
+    storage, router, cookie, pubsub, httpPost
 } from '../utils/index.js';
 
 import { Observer } from './observer.js';
@@ -81,16 +82,24 @@ const createKvelement = (kvelementName, textContent, events = {}) =>{
 
         get _context() {
             const features = {
-                root: this.shadowRoot,
-                attrs: this._attributes
+                $: $(this.shadowRoot),
+                $root: this.shadowRoot,
+                $attrs: this._attributes
             };
 
             const methods = {
-                require: url => import(url).then(_ => _),
-                onUpdate: this._onAttrChange.bind(this)
+                $require: url => import(url).then(_ => _),
+                $onProp: this._onAttrChange.bind(this),
+                $emit: pubsub.pub,
+                $on: pubsub.sub
             };
 
-            const tools = {router, cookie, httpPost};
+            const tools = {
+                $storage: storage,
+                $router: router,
+                $cookie: cookie,
+                $httpPost: httpPost
+            };
 
             return {
                 ...features,

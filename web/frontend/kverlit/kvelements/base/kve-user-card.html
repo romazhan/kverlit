@@ -1,13 +1,9 @@
 <span id='username'></span>
 
 <script>
-    const { BACKEND_URL } = await this.require('/frontend/kverlit/shared/constants.js');
+    this.$on('userInit', () => {
+        const userData = this.$storage.userData;
 
-    this.httpPost(BACKEND_URL, {
-        action: 'user',
-        needle: 'getUserInfo',
-        privateToken: this.cookie.get('privateToken')
-    }).then(res => {
-        this.root.querySelector('#username').innerText = res.data.username;
+        this.$('#username').innerHTML = userData.username;
     });
 </script>

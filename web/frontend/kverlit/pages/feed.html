@@ -10,8 +10,8 @@
 </kve-for-user>
 
 <script>
-    this.root.querySelector('#logout').addEventListener('click', () => {
-        this.cookie.erase('privateToken');
-        this.router.replace('/');
+    this.$('#logout').on('click', () => {
+        this.$cookie.remove('privateToken');
+        this.$router.replace('/');
     });
 </script>
