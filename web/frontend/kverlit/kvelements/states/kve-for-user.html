@@ -16,7 +16,7 @@
             if(this.$storage.userData) {
                 return this.$emit('userInit', this.$storage.userData);
             };
-            
+
             this.$httpPost(BACKEND_URL, {
                 action: 'user',
                 needle: 'getUserInfo',

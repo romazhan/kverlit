@@ -30,6 +30,6 @@ final class UserMiddleware {
             ], 400);
         }
 
-        return $next($request, $accountData);
+        return $next($accountData, $request);
     }
 }

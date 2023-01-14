@@ -4,15 +4,17 @@ const kvelements = {
     // - meta -
     'kve-headful': `${kvelementsPath}/meta/kve-headful.html`,
 
+    // - facade -
+    'kve-page': `${kvelementsPath}/facade/kve-page.html`,
+
     // - states -
     'kve-for-user': `${kvelementsPath}/states/kve-for-user.html`,
     'kve-for-guest': `${kvelementsPath}/states/kve-for-guest.html`,
 
-    // - base -
-    'kve-page': `${kvelementsPath}/base/kve-page.html`,
-    'kve-button': `${kvelementsPath}/base/kve-button.html`,
-    'kve-header': `${kvelementsPath}/base/kve-header.html`,
-    'kve-user-card': `${kvelementsPath}/base/kve-user-card.html`
+    // - common -
+    'kve-button': `${kvelementsPath}/common/kve-button.html`,
+    'kve-header': `${kvelementsPath}/common/kve-header.html`,
+    'kve-user-card': `${kvelementsPath}/common/kve-user-card.html`
 };
 
 export { kvelements };
