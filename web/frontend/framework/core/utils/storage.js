@@ -1,13 +1,15 @@
 const storage = (prefix => {
-    const storageObj = window[`${prefix}Storage`] = {
-        set: (key, value) => storageObj[key] = value,
+    const storageWindowObj = window[`${prefix}Storage`] = {
+        get: key => storageWindowObj.storage[key] || null,
 
-        get: key => storageObj[key] || null,
-    
-        remove: key => delete storageObj[key]
+        set: (key, value) => storageWindowObj.storage[key] = value,
+
+        remove: key => delete storageWindowObj.storage[key],
+
+        storage: {}
     };
 
-    return storageObj;
+    return storageWindowObj;
 })(`__${Math.random().toString(36)}`);
 
 export { storage };

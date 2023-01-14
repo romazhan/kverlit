@@ -14,17 +14,16 @@
             privateToken
         }).then(() => {
             if(this.$storage.userData) {
-                this.$emit('userInit');
-                return;
+                return this.$emit('userInit', this.$storage.userData);
             };
-
+            
             this.$httpPost(BACKEND_URL, {
                 action: 'user',
                 needle: 'getUserInfo',
                 privateToken
             }).then(res => {
                 this.$storage.userData = res.userData;
-                this.$emit('userInit');
+                this.$emit('userInit', this.$storage.userData);
             });
         }).catch(() => {
             delete this.storage.userData;

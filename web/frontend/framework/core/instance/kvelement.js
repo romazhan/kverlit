@@ -91,7 +91,7 @@ const createKvelement = (kvelementName, textContent, events = {}) =>{
                 $require: url => import(url).then(_ => _),
                 $onProp: this._onAttrChange.bind(this),
                 $emit: pubsub.pub,
-                $on: pubsub.sub
+                $on: (eventName, callback) => pubsub.sub(eventName, callback, true)
             };
 
             const tools = {

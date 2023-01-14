@@ -19,6 +19,10 @@ const map = {
         name: 'Feed',
         template: 'pages/feed.html'
     },
+    '/search': {
+        name: 'Search',
+        template: 'pages/search.html'
+    },
     '/profile': {
         name: 'Profile',
         template: 'pages/profile.html'

@@ -6,3 +6,9 @@
         <kve-user-card></kve-user-card>
     </kve-page>
 </kve-for-user>
+
+<script>
+    this.$on('userInit', userData => {
+        this.$('kve-headful').title = userData.username;
+    });
+</script>

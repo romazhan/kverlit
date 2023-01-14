@@ -12,12 +12,12 @@ if(in_array(getenv('APP_DEBUG'), ['false', '0'], true)) {
     error_reporting(E_ALL);
 }
 
-return function(string $dir, Request $request): int {
+return function(Request $request, array $routes): int {
     if(!$action = $request->get('action')) {
         $action = 'default';
     }
 
-    $file_path = "$dir/$action.php";
+    $file_path = $routes[$action];
 
     if(file_exists($file_path)) {
         return require_once($file_path);

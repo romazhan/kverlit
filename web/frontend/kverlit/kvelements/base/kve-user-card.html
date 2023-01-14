@@ -1,9 +1,11 @@
 <span id='username'></span>
 
 <script>
-    this.$on('userInit', () => {
-        const userData = this.$storage.userData;
+    const init = (userData = this.$storage.userData) => {
+        if(!userData) return;
 
         this.$('#username').innerHTML = userData.username;
-    });
+    };
+
+    this.$on('userInit', init);
 </script>
