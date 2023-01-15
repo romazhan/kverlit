@@ -14,7 +14,7 @@
 </kve-for-guest>
 
 <script>
-    const { BACKEND_URL } = await this.$require('/frontend/kverlit/shared/constants.js');
+    const { BACKEND_URL } = await this.require('/frontend/kverlit/shared/constants.js');
 
     const validateData = data => {
         const loginRegex = /^[a-zA-Z0-9_]+$/;
@@ -52,11 +52,15 @@
         data.action = 'register';
 
         if(validateData(data)) {
-            this.$httpPost(BACKEND_URL, data).then(res => {
-                this.$cookie.set('username', data.username, 100);
-                this.$cookie.set('privateToken', res.privateToken, 75);
+            this.httpPost(BACKEND_URL, data).then(res => {
+                const userData = res.userData;
+                if(!userData) throw new Error('Внутренняя ошибка сервера');
 
-                this.$router.replace('/feed');
+                this.cookie.set('username', data.username, 100);
+                this.cookie.set('privateToken', userData.privateToken, 75);
+                this.storage.userData = userData;
+
+                this.router.replace('/feed');
             }).catch(err => alert(err.message));
         }
     });

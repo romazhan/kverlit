@@ -16,7 +16,7 @@ final class LoginController {
         )) {
             Response::send([
                 'message' => 'Login successful',
-                'privateToken' => $user->privateToken
+                'userData' => $user
             ]);
         } else {
             Response::send([

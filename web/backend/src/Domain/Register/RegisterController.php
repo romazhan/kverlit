@@ -14,7 +14,7 @@ final class RegisterController {
         if($user = $this->registerService->register($request)) {
             Response::send([
                 'message' => 'User registered successfully',
-                'privateToken' => $user->privateToken
+                'userData' => $user
             ]);
         } else {
             Response::send([

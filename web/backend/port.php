@@ -17,8 +17,8 @@ $main = function(Request $request): void {
 
 try {
     $main(new Request());
-} catch(Exception $e) {
+} catch(Exception) {
     die(Response::send([
-        'message' => $e->getMessage()
+        'message' => 'Internal server error'
     ], 500));
 }

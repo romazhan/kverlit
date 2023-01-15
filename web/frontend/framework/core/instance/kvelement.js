@@ -83,22 +83,22 @@ const createKvelement = (kvelementName, textContent, events = {}) =>{
         get _context() {
             const features = {
                 $: $(this.shadowRoot),
-                $root: this.shadowRoot,
-                $attrs: this._attributes
+                root: this.shadowRoot,
+                attrs: this._attributes
             };
 
             const methods = {
-                $require: url => import(url).then(_ => _),
-                $onProp: this._onAttrChange.bind(this),
-                $emit: pubsub.pub,
-                $on: (eventName, callback) => pubsub.sub(eventName, callback, true)
+                require: url => import(url).then(_ => _),
+                onProp: this._onAttrChange.bind(this),
+                emit: pubsub.pub,
+                on: (eventName, callback) => pubsub.sub(eventName, callback, true)
             };
 
             const tools = {
-                $storage: storage,
-                $router: router,
-                $cookie: cookie,
-                $httpPost: httpPost
+                storage: storage,
+                router: router,
+                cookie: cookie,
+                httpPost: httpPost
             };
 
             return {

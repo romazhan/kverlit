@@ -13,11 +13,11 @@
 </kve-for-guest>
 
 <script>
-    const { BACKEND_URL } = await this.$require('/frontend/kverlit/shared/constants.js');
+    const { BACKEND_URL } = await this.require('/frontend/kverlit/shared/constants.js');
 
     const form = this.$('form');
 
-    form.username.value = this.$cookie.get('username');
+    form.username.value = this.cookie.get('username');
 
     form.on('submit', e => {
         e.preventDefault();
@@ -27,12 +27,16 @@
         data.action = 'login';
 
         data.username = data.username.trim();
-        this.$cookie.set('username', data.username, 100);
+        this.cookie.set('username', data.username, 100);
 
-        this.$httpPost(BACKEND_URL, data).then(res => {
-            this.$cookie.set('privateToken', res.privateToken, 75);
+        this.httpPost(BACKEND_URL, data).then(res => {
+            const userData = res.userData;
+            if(!userData) throw new Error('Внутренняя ошибка сервера');
 
-            this.$router.replace('/feed');
-        }).catch(err => alert(err.message));
+            this.cookie.set('privateToken', userData.privateToken, 75);
+            this.storage.userData = userData;
+
+            this.router.replace('/feed');
+        }).catch(err => console.log(err.message));
     });
 </script>

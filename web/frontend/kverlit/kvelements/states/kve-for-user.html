@@ -3,35 +3,35 @@
 </div>
 
 <script>
-    const { BACKEND_URL } = await this.$require('/frontend/kverlit/shared/constants.js');
+    const { BACKEND_URL } = await this.require('/frontend/kverlit/shared/constants.js');
 
-    const privateToken = this.$cookie.get('privateToken');
+    const privateToken = this.cookie.get('privateToken');
 
     if(privateToken) {
-        this.$httpPost(BACKEND_URL, {
+        this.httpPost(BACKEND_URL, {
             action: 'user',
             needle: 'validatePrivateToken',
             privateToken
         }).then(() => {
-            if(this.$storage.userData) {
-                return this.$emit('userInit', this.$storage.userData);
+            if(this.storage.userData) {
+                return this.emit('userInit', this.storage.userData);
             };
 
-            this.$httpPost(BACKEND_URL, {
+            this.httpPost(BACKEND_URL, {
                 action: 'user',
                 needle: 'getUserInfo',
                 privateToken
             }).then(res => {
-                this.$storage.userData = res.userData;
-                this.$emit('userInit', this.$storage.userData);
+                this.storage.userData = res.userData;
+                this.emit('userInit', this.storage.userData);
             });
         }).catch(() => {
             delete this.storage.userData;
 
-            this.$cookie.remove('privateToken');
-            this.$router.replace('/');
+            this.cookie.remove('privateToken');
+            this.router.replace('/');
         });
     } else {
-        this.$router.replace('/');
+        this.router.replace('/');
     }
 </script>

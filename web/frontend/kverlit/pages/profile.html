@@ -8,7 +8,7 @@
 </kve-for-user>
 
 <script>
-    this.$on('userInit', userData => {
+    this.on('userInit', userData => {
         this.$('kve-headful').title = userData.username;
     });
 </script>

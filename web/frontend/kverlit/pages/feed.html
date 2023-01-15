@@ -12,7 +12,7 @@
 
 <script>
     this.$('#logout').on('click', () => {
-        this.$cookie.remove('privateToken');
-        this.$router.replace('/');
+        this.cookie.remove('privateToken');
+        this.router.replace('/');
     });
 </script>

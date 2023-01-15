@@ -33,6 +33,6 @@ abstract class Repository {
         $query->bind_param('i', $id);
         $query->execute();
 
-        return $query->get_result()->fetch_assoc() ?? null;
+        return $query->get_result()->fetch_assoc();
     }
 }
