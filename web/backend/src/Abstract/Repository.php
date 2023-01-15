@@ -11,7 +11,8 @@ abstract class Repository {
     public function __construct() {
         $this->db = new mysqli(
             getenv('DB_HOSTNAME'), getenv('DB_USERNAME'),
-            getenv('DB_PASSWORD'), getenv('DB_DATABASE')
+            getenv('DB_PASSWORD'), getenv('DB_DATABASE'),
+            getenv('DB_PORT')
         );
         $this->db->set_charset('utf8mb4');
     }

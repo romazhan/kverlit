@@ -56,9 +56,8 @@
                 const userData = res.userData;
                 if(!userData) throw new Error('Внутренняя ошибка сервера');
 
-                this.cookie.set('username', data.username, 100);
+                this.cookie.set('username', userData.username, 100);
                 this.cookie.set('privateToken', userData.privateToken, 75);
-                this.storage.userData = userData;
 
                 this.router.replace('/feed');
             }).catch(err => alert(err.message));

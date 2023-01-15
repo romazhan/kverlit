@@ -34,9 +34,7 @@
             if(!userData) throw new Error('Внутренняя ошибка сервера');
 
             this.cookie.set('privateToken', userData.privateToken, 75);
-            this.storage.userData = userData;
-
             this.router.replace('/feed');
-        }).catch(err => console.log(err.message));
+        }).catch(err => alert(err.message));
     });
 </script>
