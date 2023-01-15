@@ -1,5 +1,4 @@
 import { App, Mapper } from '/frontend/framework/index.js';
-
 import { kvelements } from '/frontend/kverlit/shared/kvelements.js';
 import { map } from '/frontend/kverlit/shared/map.js';
 

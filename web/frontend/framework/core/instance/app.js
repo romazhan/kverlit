@@ -1,5 +1,4 @@
 import { httpGet } from '../utils/index.js';
-
 import { createKvelement } from './kvelement.js';
 
 class App {

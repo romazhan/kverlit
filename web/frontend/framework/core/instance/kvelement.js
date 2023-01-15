@@ -1,11 +1,9 @@
-import {
-    $, textToHtml, toTagSyntax,
-    storage, router, cookie, pubsub, httpPost
-} from '../utils/index.js';
-
-import { Observer } from './observer.js';
-
 import { PREFIX } from '../shared/contract.js';
+import { Observer } from './observer.js';
+import {
+    $, textToHtml, toTagSyntax, storage,
+    router, cookie, pubsub, httpPost
+} from '../utils/index.js';
 
 const getKvelement = normalizedKvelementName => (customElements.get(normalizedKvelementName) || {}).prototype;
 

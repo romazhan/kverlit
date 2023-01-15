@@ -1,8 +1,7 @@
+import { createKvelement } from './kvelement.js';
 import {
     router, getUrlPath, httpGet, delegate
 } from '../utils/index.js';
-
-import { createKvelement } from './kvelement.js';
 
 class Mapper {
     constructor(map) {
