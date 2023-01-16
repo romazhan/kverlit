@@ -2,9 +2,10 @@
 
 namespace Kverlit\Domain\Register;
 
+use Kverlit\Abstract\Interface\IValidator;
 use Kverlit\Http\Request;
 
-final class RegisterValidator {
+final class RegisterValidator implements IValidator {
     private const USERNAME_RANGE = [2, 39];
     private const USERNAME_REGEX = '/^[a-zA-Z0-9_]+$/';
 

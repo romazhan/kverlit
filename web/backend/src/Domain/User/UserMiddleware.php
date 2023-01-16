@@ -2,12 +2,13 @@
 
 namespace Kverlit\Domain\User;
 
+use Kverlit\Abstract\Interface\IMiddleware;
 use Kverlit\Domain\User\Token\PrivateToken;
 use Kverlit\Http\Request;
 use Kverlit\Http\Response;
 use Closure;
 
-final class UserMiddleware {
+final class UserMiddleware implements IMiddleware {
     public function __construct(
         private UserRepository $userRepository
     ) {
