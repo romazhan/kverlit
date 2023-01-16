@@ -11,7 +11,9 @@ use Kverlit\Http\Response;
 $userRepository = new UserRepository();
 
 (new UserMiddleware($userRepository))->handle(new Request(),
-    function(array $accountData, Request $request) use($userRepository) {
+    function(
+        array $accountData, Request $request
+    ) use($userRepository) {
         $userController = new UserController(new UserService(
             $userRepository, User::fromArray($accountData)
         ));
