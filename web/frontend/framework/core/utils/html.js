@@ -1,5 +1,8 @@
-const $ = context => selector => {
-    const el = context.querySelector(selector);
+const $ = context => target => {
+    const el = target instanceof HTMLElement ? target
+        : target === window ? window
+        : target === document ? document
+        : context.querySelector(target);
 
     if(el) {
         el.$ = $(el);

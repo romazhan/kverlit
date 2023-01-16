@@ -1,0 +1,61 @@
+<form>
+    <input type='text' name='username' placeholder='Логин'>
+    <input type='password' name='password' placeholder='Пароль'>
+    <input type='password' name='password2' placeholder='Повторите пароль'>
+
+    <kve-button type='submit'>Зарегистрироваться</kve-button>
+</form>
+
+<script>
+    const { BACKEND_URL } = await this.require('/frontend/kverlit/shared/constants.js');
+
+    const validateData = data => {
+        const loginRegex = /^[a-zA-Z0-9_]+$/;
+
+        data.username = data.username.trim();
+
+        if(data.username.length < 2 || data.username.length > 39) {
+            alert('Логин должен быть от 2 до 39 символов');
+            return false;
+        }
+
+        if(!loginRegex.test(data.username)) {
+            alert('Логин может содержать только латинские буквы, цифры и символы подчеркивания');
+            return false;
+        }
+
+        if(data.password.length < 7) {
+            alert('Пароль должен быть не меньше 7 символов');
+            return false;
+        }
+
+        if(data.password !== data.password2) {
+            alert('Пароли не совпадают');
+            return false;
+        }
+
+        return true;
+    };
+
+    const handleForm = form => {
+        const data = Object.fromEntries(new FormData(form).entries());
+        data.action = 'register';
+
+        if(validateData(data)) {
+            this.httpPost(BACKEND_URL, data).then(res => {
+                const userData = res.userData;
+                if(!userData) throw new Error('Внутренняя ошибка сервера');
+
+                this.cookie.set('username', userData.username, 100);
+                this.cookie.set('privateToken', userData.privateToken, 75);
+
+                this.router.replace('/feed');
+            }).catch(err => alert(err.message));
+        }
+    };
+
+    const form = this.$('form');
+
+    form.$('[type=submit]').on('click', () => handleForm(form));
+    form.on('keypress', e => e.which === 13 && handleForm(form));
+</script>

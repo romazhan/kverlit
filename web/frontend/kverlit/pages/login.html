@@ -3,38 +3,6 @@
 <kve-for-guest>
     <kve-page>
         <h1>Вход</h1>
-        <form>
-            <input type='text' name='username' placeholder='Логин'>
-            <input type='password' name='password' placeholder='Пароль'>
-    
-            <button type='submit'>Войти</button>
-        </form> 
+        <kve-login-form></kve-login-form> 
     </kve-page>
 </kve-for-guest>
-
-<script>
-    const { BACKEND_URL } = await this.require('/frontend/kverlit/shared/constants.js');
-
-    const form = this.$('form');
-
-    form.username.value = this.cookie.get('username');
-
-    form.on('submit', e => {
-        e.preventDefault();
-
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(new FormData(e.target).entries());
-        data.action = 'login';
-
-        data.username = data.username.trim();
-        this.cookie.set('username', data.username, 100);
-
-        this.httpPost(BACKEND_URL, data).then(res => {
-            const userData = res.userData;
-            if(!userData) throw new Error('Внутренняя ошибка сервера');
-
-            this.cookie.set('privateToken', userData.privateToken, 75);
-            this.router.replace('/feed');
-        }).catch(err => alert(err.message));
-    });
-</script>

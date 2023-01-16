@@ -1,0 +1,32 @@
+<form>
+    <input type='text' name='username' placeholder='Логин'>
+    <input type='password' name='password' placeholder='Пароль'>
+
+    <kve-button type='submit'>Войти</kve-button>
+</form>
+
+<script>
+    const { BACKEND_URL } = await this.require('/frontend/kverlit/shared/constants.js');
+
+    const handleForm = form => {
+        const data = Object.fromEntries(new FormData(form).entries());
+        data.action = 'login';
+
+        data.username = data.username.trim();
+        this.cookie.set('username', data.username, 100);
+
+        this.httpPost(BACKEND_URL, data).then(res => {
+            const userData = res.userData;
+            if(!userData) throw new Error('Внутренняя ошибка сервера');
+
+            this.cookie.set('privateToken', userData.privateToken, 75);
+            this.router.replace('/feed');
+        }).catch(err => alert(err.message));
+    };
+
+    const form = this.$('form');
+    form.username.value = this.cookie.get('username');
+
+    form.$('[type=submit]').on('click', () => handleForm(form));
+    form.on('keypress', e => e.which === 13 && handleForm(form));
+</script>
