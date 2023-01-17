@@ -13,8 +13,8 @@
             needle: 'validatePrivateToken',
             privateToken
         }).then(() => {
-            if(this.storage.userData) {
-                return this.emit('userInit', this.storage.userData);
+            if(this.storage.get('userData')) {
+                return this.emit('userInit', this.storage.get('userData'));
             };
 
             this.httpPost(BACKEND_URL, {
@@ -22,11 +22,11 @@
                 needle: 'getUserInfo',
                 privateToken
             }).then(res => {
-                this.storage.userData = res.userData;
-                this.emit('userInit', this.storage.userData);
+                this.storage.set('userData', res.userData);
+                this.emit('userInit', res.userData);
             });
         }).catch(() => {
-            delete this.storage.userData;
+            this.storage.remove('userData');
 
             this.cookie.remove('privateToken');
             this.router.replace('/');

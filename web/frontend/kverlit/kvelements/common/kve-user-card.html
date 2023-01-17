@@ -1,7 +1,7 @@
 <span id='username'></span>
 
 <script>
-    const init = (userData = this.storage.userData) => {
+    const init = (userData = this.storage.get('userData')) => {
         if(!userData) return;
 
         this.$('#username').innerHTML = userData.username;
