@@ -92,12 +92,7 @@ const createKvelement = (kvelementName, textContent, events = {}) =>{
                 on: (eventName, callback) => pubsub.sub(eventName, callback, true)
             };
 
-            const tools = {
-                storage: storage,
-                router: router,
-                cookie: cookie,
-                httpPost: httpPost
-            };
+            const tools = {storage, router, cookie, httpPost};
 
             return {
                 ...features,
