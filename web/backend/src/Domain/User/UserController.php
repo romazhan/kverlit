@@ -10,8 +10,8 @@ final class UserController {
         private UserService $userService
     ) {}
 
-    public function getUserInfo(Request $request): void {
-        Response::send([
+    public function getUserInfo(Request $request): Response {
+        return Response::create([
             'message' => 'User info',
             'userData' => $this->userService->getUserInfo($request)
         ]);

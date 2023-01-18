@@ -10,16 +10,16 @@ final class RegisterController {
         private RegisterService $registerService
     ) {}
 
-    public function register(Request $request): void {
+    public function register(Request $request): Response {
         if($user = $this->registerService->register($request)) {
-            Response::send([
+            return Response::create([
                 'message' => 'User registered successfully',
                 'userData' => $user
             ]);
-        } else {
-            Response::send([
-                'message' => 'The username is already taken'
-            ], 400);
         }
+
+        return Response::create([
+            'message' => 'The username is already taken'
+        ], 400);
     }
 }

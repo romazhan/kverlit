@@ -26,9 +26,9 @@ final class UserMiddleware implements IMiddleware {
                 $privateToken, $accountData['id'], $accountData['password_hash']
             )
         ) {
-            return Response::send([
+            return Response::create([
                 'message' => 'Invalid private token'
-            ], 400);
+            ], 400)->send();
         }
 
         return $next($accountData, $request);

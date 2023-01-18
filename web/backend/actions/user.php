@@ -10,29 +10,32 @@ use Kverlit\Http\Response;
 
 $userRepository = new UserRepository();
 
-(new UserMiddleware($userRepository))->handle(new Request(),
-    function(
-        array $accountData, Request $request
-    ) use($userRepository) {
-        $userController = new UserController(new UserService(
-            $userRepository, User::fromArray($accountData)
-        ));
+$userMiddleware = new UserMiddleware($userRepository);
+$userMiddleware->handle(new Request(),
+    function(array $accountData, Request $request) use($userRepository): void {
+        $userController = new UserController(
+            new UserService($userRepository, User::fromArray($accountData))
+        );
+
+        $response = null;
 
         switch($request->get('needle')) {
             case 'validatePrivateToken':
-                Response::send([
+                $response = Response::create([
                     'message' => 'Private token is valid'
                 ]);
                 break;
 
             case 'getUserInfo':
-                $userController->getUserInfo($request);
+                $response = $userController->getUserInfo($request);
                 break;
 
             default:
-                Response::send([
+                $response = Response::create([
                     'message' => 'Invalid needle'
                 ], 400);
         }
+
+        $response->send();
     }
 );

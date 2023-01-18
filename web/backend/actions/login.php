@@ -5,6 +5,9 @@ use Kverlit\Domain\Login\LoginService;
 use Kverlit\Domain\Login\LoginRepository;
 use Kverlit\Http\Request;
 
-(new LoginController(new LoginService(
-    new LoginRepository()
-)))->login(new Request());
+$loginController = new LoginController(
+    new LoginService(new LoginRepository())
+);
+
+$response = $loginController->login(new Request());
+$response->send();

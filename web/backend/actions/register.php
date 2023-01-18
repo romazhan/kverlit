@@ -5,6 +5,9 @@ use Kverlit\Domain\Register\RegisterService;
 use Kverlit\Domain\Register\RegisterRepository;
 use Kverlit\Http\Request;
 
-(new RegisterController(new RegisterService(
-    new RegisterRepository()
-)))->register(new Request());
+$registerController = new RegisterController(
+    new RegisterService(new RegisterRepository())
+);
+
+$response = $registerController->register(new Request());
+$response->send();
