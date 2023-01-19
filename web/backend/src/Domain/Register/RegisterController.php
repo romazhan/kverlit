@@ -2,8 +2,10 @@
 
 namespace Kverlit\Domain\Register;
 
-use Kverlit\Http\Request;
-use Kverlit\Http\Response;
+use Kverlit\Http\{
+    Request,
+    Response
+};
 
 final class RegisterController {
     public function __construct(

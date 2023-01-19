@@ -1,12 +1,16 @@
 <?php
 
-use Kverlit\Domain\User\UserMiddleware;
-use Kverlit\Domain\User\UserController;
-use Kverlit\Domain\User\UserService;
-use Kverlit\Domain\User\UserRepository;
-use Kverlit\Domain\User\User;
-use Kverlit\Http\Request;
-use Kverlit\Http\Response;
+use Kverlit\Domain\User\{
+    UserMiddleware,
+    UserController,
+    UserService,
+    UserRepository,
+    User
+};
+use Kverlit\Http\{
+    Request,
+    Response
+};
 
 $userRepository = new UserRepository();
 

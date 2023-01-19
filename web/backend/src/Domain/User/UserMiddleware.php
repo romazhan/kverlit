@@ -4,8 +4,10 @@ namespace Kverlit\Domain\User;
 
 use Kverlit\Abstract\Interface\IMiddleware;
 use Kverlit\Domain\User\Token\PrivateToken;
-use Kverlit\Http\Request;
-use Kverlit\Http\Response;
+use Kverlit\Http\{
+    Request,
+    Response
+};
 use Closure;
 
 final class UserMiddleware implements IMiddleware {

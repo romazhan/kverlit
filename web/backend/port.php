@@ -1,7 +1,9 @@
 <?php declare(strict_types = 1);
 
-use Kverlit\Http\Request;
-use Kverlit\Http\Response;
+use Kverlit\Http\{
+    Request,
+    Response
+};
 
 require_once(__DIR__ . '/vendor/autoload.php');
 

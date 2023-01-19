@@ -1,8 +1,10 @@
 <?php
 
-use Kverlit\Domain\Login\LoginController;
-use Kverlit\Domain\Login\LoginService;
-use Kverlit\Domain\Login\LoginRepository;
+use Kverlit\Domain\Login\{
+    LoginController,
+    LoginService,
+    LoginRepository
+};
 use Kverlit\Http\Request;
 
 $loginController = new LoginController(

@@ -2,8 +2,10 @@
 
 namespace Kverlit\Domain\User;
 
-use Kverlit\Http\Request;
-use Kverlit\Http\Response;
+use Kverlit\Http\{
+    Request,
+    Response
+};
 
 final class UserController {
     public function __construct(

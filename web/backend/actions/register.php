@@ -1,8 +1,10 @@
 <?php
 
-use Kverlit\Domain\Register\RegisterController;
-use Kverlit\Domain\Register\RegisterService;
-use Kverlit\Domain\Register\RegisterRepository;
+use Kverlit\Domain\Register\{
+    RegisterController,
+    RegisterService,
+    RegisterRepository
+};
 use Kverlit\Http\Request;
 
 $registerController = new RegisterController(
