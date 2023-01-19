@@ -1,7 +1,5 @@
 <?php
 
-session_start(); // TODO: implement the need
-
 use Dotenv\Dotenv;
 use Kverlit\Http\Request;
 

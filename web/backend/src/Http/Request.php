@@ -2,7 +2,7 @@
 
 namespace Kverlit\Http;
 
-final class Request {
+final class Request { // TODO: as an entity?
     private array $request;
 
     public function __construct() {
