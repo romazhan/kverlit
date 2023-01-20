@@ -10,12 +10,10 @@ if(in_array(getenv('APP_DEBUG'), ['false', '0'], true)) {
     error_reporting(E_ALL);
 }
 
-return function(Request $request, array $routes): int {
-    if(!$action = $request->get('action')) {
-        $action = 'default';
-    }
+return function(Request $request, array $routes, string $default_action = '_'): int {
+    $action = $request->get('action') ?: $default_action;
 
-    $file_path = $routes[$action];
+    $file_path = $routes[$action] ?? '';
 
     if(file_exists($file_path)) {
         return require_once($file_path);

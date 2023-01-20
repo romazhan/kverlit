@@ -11,6 +11,7 @@ $main = function(Request $request): void {
     $bootstrap = require_once(__DIR__ . '/src/bootstrap.php');
 
     $bootstrap($request, [
+        '_' => 'actions/_.php',
         'login' => 'actions/login.php',
         'register' => 'actions/register.php',
         'user' => 'actions/user.php'
