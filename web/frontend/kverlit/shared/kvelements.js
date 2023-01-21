@@ -1,4 +1,4 @@
-const kvelementsPath = '/frontend/kverlit/kvelements';
+const kvelementsPath = 'kverlit/kvelements';
 
 const kvelements = {
     // - meta -
