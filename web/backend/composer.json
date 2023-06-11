@@ -7,11 +7,6 @@
             "Kverlit\\": "src/"
         }
     },
-    "authors": [
-        {
-            "name": "polak228"
-        }
-    ],
     "require": {
         "vlucas/phpdotenv": "^5.5"
     }
